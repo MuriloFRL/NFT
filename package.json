@@ -1,0 +1,24 @@
+{
+  "name": "nft",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MuriloFRL/NFT.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MuriloFRL/NFT/issues"
+  },
+  "homepage": "https://github.com/MuriloFRL/NFT#readme",
+  "dependencies": {
+    "truffle": "^5.4.29",
+    "web3": "^1.7.3"
+  }
+}
