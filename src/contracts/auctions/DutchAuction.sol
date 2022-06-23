@@ -19,7 +19,7 @@ contract DutchAuction {
   uint public immutable startingPrice;
   uint public immutable startAt;
   uint public immutable expiresAt;
-  uint public immutable discountRate;
+  uint public discountRate;
 
   constructor(
     uint _startingPrice,
@@ -32,6 +32,7 @@ contract DutchAuction {
     startAt = block.timestamp;
     expiresAt = block.timestamp + DURATION;
     discountRate = _discountRate;
+    originalDiscountRate = _discountRate;
 
     require(_startingPrice >= _discountRate * DURATION, "starting price < min");
 
@@ -43,6 +44,19 @@ contract DutchAuction {
     uint timeElapsed = block.timestamp - startAt;
     uint discount = discountRate * timeElapsed;
     return startingPrice - discount;
+  }
+
+  function freezeDiscount() external payable {
+    require(msg.sender == seller, "Only the auction holder can freeze the discount");
+    _discountRate = 0;
+
+    return setTimeout("unfreezeDiscount", 30);
+  }
+
+  function unfreezeDiscount() external payable {
+    require(msg.sender == seller, 'Only the auction holder can unfreeze the discount');
+
+    _discountRate = originalDiscountRate;
   }
 
   function buy() external payable {
